@@ -5,6 +5,7 @@ import com.lolzorrior.supernaturalmod.networking.PowerUpdatePacket;
 import com.lolzorrior.supernaturalmod.networking.PowerUsePacket;
 import com.lolzorrior.supernaturalmod.networking.supernaturalPacketHndler;
 import net.minecraft.block.Blocks;
+import net.minecraft.entity.CreatureEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -273,7 +274,7 @@ public class ForgeEventSubscriber {
         }
         LivingEntity player = event.getEntityLiving().getAttackingEntity();
         int powerToAdd = 50;
-        if (!(event.getEntityLiving().getAttackingEntity().getActiveItemStack().isEmpty())) {
+        if (!(player.getHeldItemMainhand().isEmpty())) {
             player.sendMessage(new StringTextComponent("Hand isn't empty."), event.getEntity().getUniqueID());
             return;
         }
@@ -305,6 +306,7 @@ public class ForgeEventSubscriber {
             return;
         }
         ((WolfEntity) event.getEntity()).setAttackTarget(null);
+        ((WolfEntity) event.getEntity()).setAggroed(false);
         event.setCanceled(true);
     }
 
@@ -350,4 +352,21 @@ public class ForgeEventSubscriber {
         }
         supernaturalPacketHndler.channel.sendToServer(new PowerUsePacket("CastBasic"));
     }
+
+    @SubscribeEvent
+    public void consume(LivingDeathEvent event) {
+        LivingEntity creature = event.getEntityLiving();
+        if (!(creature.getAttackingEntity() instanceof PlayerEntity)) {
+            return;
+        }
+        if (!(creature instanceof CreatureEntity)) {
+            return;
+        }
+        if (!(creature.getAttackingEntity().getCapability(SUPERNATURAL_CLASS).orElseThrow(NullPointerException::new).getSupernaturalClass().equals("Werewolf"))) {
+            return;
+        }
+        creature.getAttackingEntity().getCapability(SUPERNATURAL_CLASS).orElseThrow(NullPointerException::new).fill(50);
+        creature.getAttackingEntity().sendMessage(new StringTextComponent("You take a bite from the creatures corpse. Updated power: " + creature.getAttackingEntity().getCapability(SUPERNATURAL_CLASS).orElseThrow(NullPointerException::new).getPower()), creature.getAttackingEntity().getUniqueID());
+    }
+
 }

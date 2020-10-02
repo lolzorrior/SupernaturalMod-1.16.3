@@ -55,6 +55,16 @@ public class PowerUsePacket {
                         }
                         break;
                     }
+                    case "Monk": {
+                        if (sender.getCapability(SUPERNATURAL_CLASS).orElseThrow(NullPointerException::new).getPower() >= 50) {
+                            sender.getCapability(SUPERNATURAL_CLASS).orElseThrow(NullPointerException::new).consume(50);
+                            sender.addPotionEffect(new EffectInstance(Effects.STRENGTH, 200, 3));
+                            sender.sendMessage(new StringTextComponent("You have " + sender.getCapability(SUPERNATURAL_CLASS).orElseThrow(NullPointerException::new).getPower() + " power left."), sender.getUniqueID());
+                        } else {
+                            sender.sendMessage(new StringTextComponent("Not enough power."), sender.getUniqueID());
+                        }
+                        break;
+                    }
                     default: {
                         break;
                     }
