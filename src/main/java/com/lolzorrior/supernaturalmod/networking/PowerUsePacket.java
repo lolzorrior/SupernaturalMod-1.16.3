@@ -1,6 +1,7 @@
 package com.lolzorrior.supernaturalmod.networking;
 
 import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.item.Items;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.potion.Effect;
 import net.minecraft.potion.EffectInstance;
@@ -58,7 +59,67 @@ public class PowerUsePacket {
                     case "Monk": {
                         if (sender.getCapability(SUPERNATURAL_CLASS).orElseThrow(NullPointerException::new).getPower() >= 50) {
                             sender.getCapability(SUPERNATURAL_CLASS).orElseThrow(NullPointerException::new).consume(50);
-                            sender.addPotionEffect(new EffectInstance(Effects.STRENGTH, 200, 3));
+                            sender.addPotionEffect(new EffectInstance(Effects.SLOW_FALLING, 200, 3));
+                            sender.sendMessage(new StringTextComponent("You have " + sender.getCapability(SUPERNATURAL_CLASS).orElseThrow(NullPointerException::new).getPower() + " power left."), sender.getUniqueID());
+                        } else {
+                            sender.sendMessage(new StringTextComponent("Not enough power."), sender.getUniqueID());
+                        }
+                        break;
+                    }
+                    case "Witch Hunter": {
+                        if (sender.getCapability(SUPERNATURAL_CLASS).orElseThrow(NullPointerException::new).getPower() >= 50) {
+                            sender.getCapability(SUPERNATURAL_CLASS).orElseThrow(NullPointerException::new).consume(50);
+                            sender.addItemStackToInventory(Items.CROSSBOW.getDefaultInstance());
+                            sender.sendMessage(new StringTextComponent("You have " + sender.getCapability(SUPERNATURAL_CLASS).orElseThrow(NullPointerException::new).getPower() + " power left."), sender.getUniqueID());
+                        } else {
+                            sender.sendMessage(new StringTextComponent("Not enough power."), sender.getUniqueID());
+                        }
+                        break;
+                    }
+                    case "Zombie": {
+                        if (sender.getCapability(SUPERNATURAL_CLASS).orElseThrow(NullPointerException::new).getPower() >= 50) {
+                            sender.getCapability(SUPERNATURAL_CLASS).orElseThrow(NullPointerException::new).consume(50);
+                            sender.addPotionEffect(new EffectInstance(Effects.GLOWING, 200, 3));
+                            sender.sendMessage(new StringTextComponent("You have " + sender.getCapability(SUPERNATURAL_CLASS).orElseThrow(NullPointerException::new).getPower() + " power left."), sender.getUniqueID());
+                        } else {
+                            sender.sendMessage(new StringTextComponent("Not enough power."), sender.getUniqueID());
+                        }
+                        break;
+                    }
+                    case "Demon": {
+                        if (sender.getCapability(SUPERNATURAL_CLASS).orElseThrow(NullPointerException::new).getPower() >= 50) {
+                            sender.getCapability(SUPERNATURAL_CLASS).orElseThrow(NullPointerException::new).consume(50);
+                            sender.addPotionEffect(new EffectInstance(Effects.RESISTANCE, 200, 3));
+                            sender.sendMessage(new StringTextComponent("You have " + sender.getCapability(SUPERNATURAL_CLASS).orElseThrow(NullPointerException::new).getPower() + " power left."), sender.getUniqueID());
+                        } else {
+                            sender.sendMessage(new StringTextComponent("Not enough power."), sender.getUniqueID());
+                        }
+                        break;
+                    }
+                    case "Warlock": {
+                        if (sender.getCapability(SUPERNATURAL_CLASS).orElseThrow(NullPointerException::new).getPower() >= 50) {
+                            sender.getCapability(SUPERNATURAL_CLASS).orElseThrow(NullPointerException::new).consume(50);
+                            sender.addPotionEffect(new EffectInstance(Effects.INSTANT_HEALTH, 0, 1));
+                            sender.sendMessage(new StringTextComponent("You have " + sender.getCapability(SUPERNATURAL_CLASS).orElseThrow(NullPointerException::new).getPower() + " power left."), sender.getUniqueID());
+                        } else {
+                            sender.sendMessage(new StringTextComponent("Not enough power."), sender.getUniqueID());
+                        }
+                        break;
+                    }
+                    case "Mage": {
+                        if (sender.getCapability(SUPERNATURAL_CLASS).orElseThrow(NullPointerException::new).getPower() >= 50) {
+                            sender.getCapability(SUPERNATURAL_CLASS).orElseThrow(NullPointerException::new).consume(50);
+                            sender.addPotionEffect(new EffectInstance(Effects.HASTE, 200, 3));
+                            sender.sendMessage(new StringTextComponent("You have " + sender.getCapability(SUPERNATURAL_CLASS).orElseThrow(NullPointerException::new).getPower() + " power left."), sender.getUniqueID());
+                        } else {
+                            sender.sendMessage(new StringTextComponent("Not enough power."), sender.getUniqueID());
+                        }
+                        break;
+                    }
+                    case "Human": {
+                        if (sender.getCapability(SUPERNATURAL_CLASS).orElseThrow(NullPointerException::new).getPower() >= 50) {
+                            sender.getCapability(SUPERNATURAL_CLASS).orElseThrow(NullPointerException::new).consume(50);
+                            sender.addPotionEffect(new EffectInstance(Effects.LUCK, 200, 1));
                             sender.sendMessage(new StringTextComponent("You have " + sender.getCapability(SUPERNATURAL_CLASS).orElseThrow(NullPointerException::new).getPower() + " power left."), sender.getUniqueID());
                         } else {
                             sender.sendMessage(new StringTextComponent("Not enough power."), sender.getUniqueID());

@@ -127,9 +127,6 @@ public class ForgeEventSubscriber {
         }
         LivingEntity player = event.getEntityLiving().getAttackingEntity();
         int powerToAdd = 50;
-        if (!(event.getEntityLiving() instanceof IMob)) {
-            return;
-        }
         if (!(event.getEntityLiving().getLastDamageSource().isProjectile())) {
             return;
         }
