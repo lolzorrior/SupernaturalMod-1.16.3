@@ -1,6 +1,7 @@
 package com.lolzorrior.supernaturalmod;
 
 import com.lolzorrior.supernaturalmod.capabilities.*;
+import com.lolzorrior.supernaturalmod.commands.PowerCommand;
 import com.lolzorrior.supernaturalmod.networking.PowerUpdatePacket;
 import com.lolzorrior.supernaturalmod.networking.PowerUsePacket;
 import com.lolzorrior.supernaturalmod.networking.supernaturalPacketHndler;
@@ -24,6 +25,7 @@ import net.minecraftforge.common.capabilities.CapabilityInject;
 import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
+import net.minecraftforge.event.RegisterCommandsEvent;
 import net.minecraftforge.event.entity.EntityEvent;
 import net.minecraftforge.event.entity.EntityMobGriefingEvent;
 import net.minecraftforge.event.entity.living.*;
@@ -39,6 +41,8 @@ import net.minecraftforge.fml.LogicalSide;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.network.PacketDistributor;
+import net.minecraftforge.server.command.ConfigCommand;
+import net.minecraftforge.server.command.ForgeCommand;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.lwjgl.system.CallbackI;
@@ -53,6 +57,12 @@ public class ForgeEventSubscriber {
     @SubscribeEvent
     public static void onCommonSetup(FMLCommonSetupEvent event) {
         CapabilityManager.INSTANCE.register(ISupernaturalClass.class, new SupernaturalClassStorage(), SupernaturalClass::new);
+    }
+
+    @SubscribeEvent
+    public void onCommandsRegister(RegisterCommandsEvent event)
+    {
+        new PowerCommand(event.getDispatcher());
     }
 
     @SubscribeEvent
