@@ -16,6 +16,17 @@ public class SupernaturalClass implements ISupernaturalClass {
     private String supernaturalClass;
     private int power;
 
+    public static String[] SUPERNATURAL_CLASSES = {
+        "Human",
+        "Monk",
+        "Demon",
+        "Werewolf",
+        "Witch Hunter",
+        "Mage",
+        "Warlock",
+        "Zombie"
+    };
+
     public SupernaturalClass() {
         this.setSupernaturalClass("Human");
         this.power = 0;

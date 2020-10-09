@@ -1,6 +1,7 @@
 package com.lolzorrior.supernaturalmod;
 
 import com.lolzorrior.supernaturalmod.capabilities.*;
+import com.lolzorrior.supernaturalmod.commands.ClassCommand;
 import com.lolzorrior.supernaturalmod.commands.PowerCommand;
 import com.lolzorrior.supernaturalmod.networking.PowerUpdatePacket;
 import com.lolzorrior.supernaturalmod.networking.PowerUsePacket;
@@ -63,6 +64,7 @@ public class ForgeEventSubscriber {
     public void onCommandsRegister(RegisterCommandsEvent event)
     {
         new PowerCommand(event.getDispatcher());
+        new ClassCommand(event.getDispatcher());
     }
 
     @SubscribeEvent

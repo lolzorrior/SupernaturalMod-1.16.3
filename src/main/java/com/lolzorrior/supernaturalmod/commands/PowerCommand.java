@@ -51,7 +51,7 @@ public class PowerCommand{
         }
 
         int i = getPower(source);
-        source.sendFeedback(new TranslationTextComponent("commands.supernaturalmod.power.set", i), true);
+        source.sendFeedback(new TranslationTextComponent("commands.supernaturalmod.power.get", i), true);
         return i;
     }
 }
